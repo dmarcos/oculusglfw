@@ -1,4 +1,4 @@
-## glfw / Oculus Rift Sample code
+## glfw / Oculus PC SDK Sample code
 
 Code is barebones. Initializion, session creation, swap chain setup, buffer clear logic, frame submission. No proper error handling. Shows how to get from 0 to something on screen with glfw and Oculus Desktop SDK (1.35 when this was written) 
 
