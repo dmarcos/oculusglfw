@@ -12,7 +12,7 @@ IF %ERRORLEVEL% NEQ 0 (
 IF NOT EXIST build mkdir build
 pushd build
 echo Building...
-cl -MD -wd4530 -nologo -GR- -W4 -FC -Fm -Zi /I..\include ..\main.cpp ..\include\glad\src\glad.c /link -opt:ref user32.lib Gdi32.lib msvcrt.lib shell32.lib OpenGL32.lib vcruntime.lib ..\lib\glfw3.lib ..\lib\LibOVR.lib
+cl -MT -wd4530 -nologo -GR- -W4 -FC -Fm -Zi /I..\include ..\main.cpp ..\include\glad\src\glad.c /link -opt:ref user32.lib Gdi32.lib msvcrt.lib shell32.lib OpenGL32.lib vcruntime.lib libcmt.lib ..\lib\glfw3.lib ..\lib\LibOVR.lib
 if %ERRORLEVEL%==0 (
   echo Success :^)
   goto end
