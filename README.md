@@ -18,7 +18,7 @@ build
 run
 ```
 
-##### Build and run
+#### Build and Run :)
 
 ```
 build & run
