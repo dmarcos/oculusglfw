@@ -14,7 +14,6 @@ typedef struct SwapChain {
   ovrTextureSwapChain ColorTextureChain;
   ovrTextureSwapChain DepthTextureChain;
   ovrSizei textureSize;
-  GLuint fboId;
 } EyeSwapChain;
 
 // enable optimus!
@@ -23,7 +22,7 @@ extern "C" {
 }
 
 int main(){
-
+  GLuint fboId;
   EyeSwapChain eyes[2];
 
   // Oculus: Initialize
@@ -76,6 +75,8 @@ int main(){
   bufferSize.w  = leftEyeTextureSize.w + rightEyeTextureSize.w;
   bufferSize.h = std::max(leftEyeTextureSize.h, rightEyeTextureSize.h);
 
+  glGenFramebuffers(1, &fboId);
+
   // Make eye render buffers
   for (int eye = 0; eye < 2; ++eye) {
     ovrTextureSwapChainDesc desc = {};
@@ -127,9 +128,6 @@ int main(){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
       }
     }
-
-    glGenFramebuffers(1, &eyes[eye].fboId);
-
   }
 
   // End Oculus: Initialize Swap Chain
@@ -176,7 +174,7 @@ int main(){
         ovr_GetTextureSwapChainBufferGL(session, eyes[eye].DepthTextureChain, curIndex, &depthTextureId);
       }
 
-      glBindFramebuffer(GL_FRAMEBUFFER, eyes[eye].fboId);
+      glBindFramebuffer(GL_FRAMEBUFFER, fboId);
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTextureId, 0);
       glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTextureId, 0);
 
